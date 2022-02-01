@@ -1,11 +1,27 @@
 #! /bin/bash
 
 
-sudo apt install xinit #xdm
+sudo apt install xinit
 
-### install xmonad, a Haskell-based window manager, and common utilities for it ###
+### install xmonad, a Haskell-based window manager, its default terminal and common utilities for it ###
 sudo apt update
-sudo apt install xmonad libghc-xmonad-contrib-dev libghc-xmonad-dev suckless-tools
-#sudo update-alternatives --install /usr/bin/x-session-manager x-session-manager /usr/bin/xmonad 60
-### end install of xmonad, etc. ###
+sudo apt install xmonad xterm libghc-xmonad-contrib-dev libghc-xmonad-dev suckless-tools
 cp {.xinitrc,.bash_profile} ~/
+cp xmonad.hs ~/.xmonad
+cd ~/.xmonad
+xmonad --recompile
+### end install of xmonad, etc. ###
+
+### setup github ###
+curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/etc/apt/trusted.gpg.d/githubcli-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/trusted.gpg.d/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+sudo apt update
+sudo apt install gh firefox
+gh auth login
+echo "Please enter git username:"
+read USERNAME
+git config --global user.name ${USERNAME}
+echo "Please enter git email:"
+read EMAIL
+git config --global user.email ${EMAIL}
+### end github setup ###
