@@ -1,13 +1,13 @@
 #! /bin/bash
 
-
-sudo apt install xinit
-
 ### install xmonad, a Haskell-based window manager, its default terminal and common utilities for it ###
 sudo apt update
+sudo apt install xserver-xorg-core
 sudo apt install xmonad xterm libghc-xmonad-contrib-dev libghc-xmonad-dev suckless-tools
+sudo apt install xinit
 cp {.xinitrc,.bash_profile} ~/
-cp xmonad.hs ~/.xmonad
+mkdir ~/.xmonad
+cp xmonad.hs ~/.xmonad/
 cd ~/.xmonad
 xmonad --recompile
 ### end install of xmonad, etc. ###
